@@ -23,9 +23,9 @@ class UsersController < ApplicationController
     end 
 
     def create
-        user = User.create(user_params) # This is the line where user was created.
+        user = User.create(user_params) 
         if user.valid?
-            session[:user_id] = user.id  # This is the line of code that logs the user in.
+            session[:user_id] = user.id 
             render json: user
         else 
             render json: { errors: user.errors.full_messages }, status: :unprocessable_entity  
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     private
     #strong params
     def user_params
-        params.permit(:username, :password, :password_confirmation)
+        params.permit(:username, :password)
     end 
 
 end

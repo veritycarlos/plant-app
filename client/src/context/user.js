@@ -1,14 +1,17 @@
 import React, { useState, useEffect} from 'react'
+import {useParams, useNavigate } from 'react-router-dom'
 
 const UserContext = React.createContext();
 
 function UserProvider({ children }) {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
-    const [plants, setPlants] = useState ({})
-    const [plant, setPlant] = useState({})
-    const [tips, setTips] = useState ({})
-    const [tip, setTip] = useState({})
+    const [plants, setPlants] = useState ([])
+    const [plant, setPlant] = useState([])
+    const [tips, setTips] = useState ([])
+    const [tip, setTip] = useState([])
+    const [errors, setErrors] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch(`/users/id`)
@@ -34,7 +37,7 @@ function UserProvider({ children }) {
     }
 
     const getTips = () => {
-        fetch(`/plants/${plant.id}/tips/${tip.id}`)
+        fetch(`/plants/${plant.id}/tips`)
         .then(res => res.json())
         .then(data => {
             setTips(data)
@@ -47,21 +50,27 @@ function UserProvider({ children }) {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(plant)
         })
-        .then(res => res.json())
-        .then(data => {
-            setPlants([...plants, data])
+        .then(res => {
+            if (res.ok) {
+                res.json().then((data) => setPlants([...plants, data]))
+                navigate('/plants')
+            } else {
+                res.json().then((err) => setErrors(err.errors))
+            }       
+            
         })
     }
 
     const addTip = (tip) => {
-        fetch(`/plants/${plant.id}/tips`, {
+        fetch(`/tips`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(tip)
         })
         .then(res => res.json())
         .then(data => {
-            setTips([...tips, data])
+            const updatedPlant = {...plant, tips: [...plant.tips, data]}
+            setPlant(updatedPlant)
         })
     }
 
@@ -85,8 +94,9 @@ function UserProvider({ children }) {
         setLoggedIn(true)
     }
 
+
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, plants, tips, addPlant, addTip }}>
+        <UserContext.Provider value={{ user, plant, setPlant, setTips, login, logout, signup, loggedIn, plants, tips, addPlant, addTip, errors }}>
             {children}
         </UserContext.Provider>
     )

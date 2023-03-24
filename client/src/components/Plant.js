@@ -1,28 +1,39 @@
-import React, {useEffect, useState } from 'react'
+import React, {useEffect, useState, useContext } from 'react'
 import { useParams, NavLink, useNavigate} from 'react-router-dom'
 import TipForm from './TipForm'
 import TipList from './TipList'
 import { UserContext } from '../context/user'
 
 function Plant() {
-    const[plant, setPlant] = useState([])
+    // const[plant, setPlant] = useState([])
     const [plants, setPlants] = useState([])
     const params = useParams();
     const navigate = useNavigate();
-    const[tips, setTips] = useState([])
+    // const[tips, setTips] = useState([])
     const [user, setUser]=useState([])
+    const {plant, tips,  setPlant} = useContext(UserContext)
 
-    const addTip = (tip) => {
-        setTips([...tips, tip])
-    }
+    // const addTip = (tip) => {
+    //     // setTips([...tips, tip])
+
+    //     const updatedPlant = {...plant, tips: [...plant.tips, tip]}
+    //     setPlant(updatedPlant)
+    // }
 
     useEffect(() => {
+        console.log(params)
         fetch(`/plants/${params.id}`)
             .then(res => res.json())
             .then(data => {
                 setPlant(data)
             })
     }, [])
+
+    if (!plant) {
+        return(
+           <h1>loading</h1>
+        )
+    }
 
     const deletePlant = e => {
         fetch(`/plants/${ params.id }`, {method: "DELETE"})
@@ -53,10 +64,12 @@ function Plant() {
             <br/>
             <TipList tips={tips} />
             <br/>
-            <TipForm plant={plant} user={user} addTip={addTip} />
+            <TipForm params={params} plant={plant} user={user}  />
             <br/>
         </div>
     )
 }
 
 export default Plant
+
+// const plantList = plants.map(p => <PlantLink key={p.id} plant={p}/>)

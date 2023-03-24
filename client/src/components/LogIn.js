@@ -1,3 +1,15 @@
+// import React from 'react'
+
+// function LogIn() {
+//   return (
+//     <div>
+//         <h1>Login</h1>
+//     </div>
+//   )
+// }
+
+// export default LogIn
+
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/user'
 import { useNavigate } from 'react-router-dom'

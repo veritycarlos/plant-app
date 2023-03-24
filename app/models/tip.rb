@@ -1,5 +1,5 @@
 class Tip < ApplicationRecord
-  validates :comment, :title, :rating, presence: true
+  validates :comment, :title, presence: true
 
   belongs_to :user
   belongs_to :plant

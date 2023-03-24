@@ -4,9 +4,9 @@ import {NavLink} from 'react-router-dom'
 
 function Plants() {
     const[plants, setPlants] = useState([])
-    const[tips, setTips] = useState([])
-    const [user, setUser]=useState([])
-    const [plant, setPlant] =useState({})
+    // const[tips, setTips] = useState([])
+    // const [user, setUser]=useState([])
+    // const [plant, setPlant] =useState({})
 
 
 

@@ -1,4 +1,5 @@
 class TipsController < ApplicationController
+    wrap_parameters format: []
 
     def index
         if params[:plant_id]
@@ -21,14 +22,14 @@ class TipsController < ApplicationController
     end 
 
     def create
-        tip = Tip.create(tip_params)
-        render json: tip.plant, status: :created
+        tip = current_user.tips.create(tip_params)
+        render json: tip, status: :created
     end
 
     private
 
     def tip_params
-        params.permit(:user_id, :plant_id, :timestamps)
+        params.permit(:title, :comment, :plant_id, :user_id)
     end
     
     # def index

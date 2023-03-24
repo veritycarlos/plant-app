@@ -1,17 +1,18 @@
-import React, { useState, useContext } from 'react'
-// import { useNavigate} from 'react-router-dom';
+import React, { useState, useContext, useParams} from 'react'
 import { UserContext } from '../context/user'
 
 const TipForm = () => {
     const [title, setTitle ] = useState("");
-    const [comment, setComment ] = useState("");
-    const {addTip} = useContext(UserContext)
+    const [comment, setComment ] = useState("");  
+    const {addTip, plant} = useContext(UserContext)
+
 
     const handleSubmit = e => {
         e.preventDefault();
         addTip({
             title: title,
-            comment: comment
+            comment: comment,
+            plant_id: plant.id
         })
     }
 

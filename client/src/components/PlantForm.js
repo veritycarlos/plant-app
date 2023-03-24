@@ -4,7 +4,7 @@ import { UserContext} from '../context/user'
 const PlantForm = () => {
     const [name, setName] = useState("");
     const [image, setImage] = useState("")
-    const {addPlant} = useContext(UserContext)
+    const {addPlant, errors} = useContext(UserContext)
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -37,6 +37,7 @@ const PlantForm = () => {
             </div>
             <br/>
             <input type="submit" value="Add New Plant" />
+            {errors ? (errors.map((error) => {return <p >{error}</p>})) : null }
         </form>
 
     </div>
