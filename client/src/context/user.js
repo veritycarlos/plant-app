@@ -69,7 +69,6 @@ function UserProvider({ children }) {
         .then(res => {             
             if (res.ok) {
                 res.json().then((data) => updatePlantTips(data))
-                // navigate('/plants')
             } else {
                 res.json().then((err) => setErrors(err.error))
             }   
@@ -105,7 +104,7 @@ function UserProvider({ children }) {
 
 
     return (
-        <UserContext.Provider value={{ user, plant, setPlant, setTips, login, logout, signup, loggedIn, plants, tips, addPlant, addTip, errors }}>
+        <UserContext.Provider value={{ user, setPlants, plant, setPlant, setTips, login, logout, signup, loggedIn, plants, tips, addPlant, addTip, errors }}>
             {children}
         </UserContext.Provider>
     )

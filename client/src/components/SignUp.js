@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 const SignUp = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    //const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errorsList, setErrorsList] = useState([])
     const {signup} = useContext(UserContext)
     const navigate = useNavigate()
@@ -13,15 +12,11 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/signup', {
-            // config obj
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
-              //  what we're sending to backend
                 username: username,     
                 password: password
-                //password_confirmation: passwordConfirmation
-
             })
         })
         .then(res => res.json())
@@ -32,7 +27,6 @@ const SignUp = () => {
             } else {
                 setUsername("")
                 setPassword("")
-                //setPasswordConfirmation("")
                 const errorLis = user.errors.map(e => <li>{e}</li>)
                 setErrorsList(errorLis)
             }            
@@ -56,13 +50,6 @@ const SignUp = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 /> <br/>
-                {/* <label>Confirm Password: </label>
-                <input
-                    type="password"
-                    id="password_confirmation"
-                    value={passwordConfirmation}
-                    onChange={(e) => setPasswordConfirmation(e.target.value)}
-                /> <br/> */}
                 <input type="submit" />
             </form>
             <ul>

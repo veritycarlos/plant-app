@@ -28,7 +28,6 @@ function Plant() {
 
     const deletePlant = e => {
         fetch(`/plants/${ params.id }`, {method: "DELETE"})
-        .then(res => res.json())
         .then (data => { 
             removePlant(params.id)
             navigate(`/plants`)

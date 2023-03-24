@@ -6,4 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Tip.create(title: 'water', comment: 'water daily', user_id: 1, plant_id: 2)
+# Tip.create(title: 'water', comment: 'water daily', user_id: 1, plant_id: 2) 
