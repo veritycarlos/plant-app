@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+    skip_before_action :authorize, only: [:create]
 
     # login
     def create
@@ -7,7 +8,7 @@ class SessionsController < ApplicationController
             session[:user_id] =  user.id #moment of user being logged in
             render json: user, status: :ok
         else 
-            render json: { error: user.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: ["Incorrect username or password"] }, status: :unprocessable_entity
         end 
     end 
  

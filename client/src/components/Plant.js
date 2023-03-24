@@ -5,20 +5,11 @@ import TipList from './TipList'
 import { UserContext } from '../context/user'
 
 function Plant() {
-    // const[plant, setPlant] = useState([])
     const [plants, setPlants] = useState([])
     const params = useParams();
     const navigate = useNavigate();
-    // const[tips, setTips] = useState([])
     const [user, setUser]=useState([])
     const {plant, tips,  setPlant} = useContext(UserContext)
-
-    // const addTip = (tip) => {
-    //     // setTips([...tips, tip])
-
-    //     const updatedPlant = {...plant, tips: [...plant.tips, tip]}
-    //     setPlant(updatedPlant)
-    // }
 
     useEffect(() => {
         console.log(params)
@@ -48,15 +39,12 @@ function Plant() {
         setPlants(plants.filter( p => p.id != id))
     }
 
-    // const tips = plant.tips.map(t => <TipLinks key={t.id} tip={t} plant={plant}/>)
-
     return (
         <div>
             <h1>{plant.name}</h1>
             <br/>
             <img src={plant.image} alt="plant_photo" />
             <br/>
-            {/* {tips} */}
             <br/>
             <button onClick={ () => deletePlant( plant.id )}>Delete</button>
             <br/>
@@ -72,4 +60,3 @@ function Plant() {
 
 export default Plant
 
-// const plantList = plants.map(p => <PlantLink key={p.id} plant={p}/>)

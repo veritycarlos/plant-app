@@ -27,9 +27,6 @@ const Navbar = () => {
                 <NavLink to='/plants'>
                     <button>Plants</button>
                 </NavLink>
-                <NavLink to="/tips" >
-                    <button>Tips</button>
-                </NavLink>
             </div>
         )
     } else {
