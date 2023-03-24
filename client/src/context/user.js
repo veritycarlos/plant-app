@@ -9,7 +9,6 @@ function UserProvider({ children }) {
     const [plants, setPlants] = useState ([])
     const [plant, setPlant] = useState([])
     const [tips, setTips] = useState ([])
-    const [tip, setTip] = useState([])
     const [errors, setErrors] = useState()
     const navigate = useNavigate()
 
@@ -55,7 +54,7 @@ function UserProvider({ children }) {
                 res.json().then((data) => setPlants([...plants, data]))
                 navigate('/plants')
             } else {
-                res.json().then((err) => setErrors(err.errors))
+                res.json().then((err) => setErrors(err.error))
             }       
             
         })
@@ -67,12 +66,22 @@ function UserProvider({ children }) {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(tip)
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(res => {             
+            if (res.ok) {
+                res.json().then((data) => updatePlantTips(data))
+                // navigate('/plants')
+            } else {
+                res.json().then((err) => setErrors(err.error))
+            }   
+        })
+    }      
+            
+            
+            
+        const updatePlantTips = (data) => {
             const updatedPlant = {...plant, tips: [...plant.tips, data]}
             setPlant(updatedPlant)
-        })
-    }
+        }
 
     const login = (user) => {
         setUser(user)

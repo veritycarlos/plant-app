@@ -22,9 +22,10 @@ class TipsController < ApplicationController
     end 
 
     def create
-        tip = current_user.tips.create(tip_params)
+        tip = current_user.tips.create!(tip_params)
         render json: tip, status: :created
     end
+
 
     private
 

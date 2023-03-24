@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext} from 'react'
-// import TipLinks from './TipLinks'
 import { UserContext } from '../context/user'
 
 const TipList = () => {

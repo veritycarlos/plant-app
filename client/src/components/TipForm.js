@@ -4,7 +4,7 @@ import { UserContext } from '../context/user'
 const TipForm = () => {
     const [title, setTitle ] = useState("");
     const [comment, setComment ] = useState("");  
-    const {addTip, plant} = useContext(UserContext)
+    const {addTip, plant, errors} = useContext(UserContext)
 
 
     const handleSubmit = e => {
@@ -40,6 +40,7 @@ const TipForm = () => {
             </div>
             <br/>
             <input type="submit" value="Add New Tip" />
+            {errors ? (errors.map((error) => {return <p >{error}</p>})) : null }
         </form>
     </div>
     )
